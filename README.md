@@ -25,5 +25,37 @@ install pip requirements
 
 install nltk and spacy required resources
 `python -c "import nltk; nltk.download('cess_esp')"`
+`python -c "import nltk; nltk.download('stopwords')"`
 `python -m spacy download en`
+
+
+## USAGE
+```
+Topics in web: script to get dbpedia resources from a web page
+USAGE:
+    python topics_in_web.py URL [lang]
+
+
+# example
+
+python topics_in_web.py https://elpais.com/tecnologia/2019/02/25/actualidad/1551092139_314804.html
+['Cada', 'vez']
+    http://es.dbpedia.org/resource/Vez
+['usuarios']
+    http://es.dbpedia.org/resource/Usuario_(informática)
+['smartphones']
+    http://es.dbpedia.org/resource/Teléfono_inteligente
+['vídeos']
+    http://es.dbpedia.org/resource/Video
+
+```
+
+## Future work
+
+* Index collections of any text documents based on dbpedia resources (for instance using ElasticSearch and Tika)
+* Allow query indexed documents using sparql
+* Semantic resources visualization using plotly
+
+
+
 

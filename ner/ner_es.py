@@ -7,6 +7,7 @@ from . import ner
 from . import tokenizer
 import re
 import pattern.es as pat_es
+from nltk.corpus import stopwords
 
 
 class SpanishNER(ner.AbstractNER):
@@ -35,10 +36,13 @@ class SpanishNER(ner.AbstractNER):
         for sentence in sentences:
             span_ls = self.find_entities_tokenls(sentence)
             found_ls = [
-                    sentence[start:end] for start, end in span_ls
+                    self.remove_stopwords(sentence[start:end])
+                    for start, end in span_ls
                     if end - start <= max_length
             ]
             entity_candidates.extend(found_ls)
+            # remove stopwords
+
         return entity_candidates
 
     def find_entities_tokenls(self, tokenls):
@@ -142,4 +146,10 @@ class SpanishNER(ner.AbstractNER):
                 (include_whites or not x.replace("\n", "a").isspace()) and
                 (include_nl or not x == "\n")
                 )
+        ]
+
+    def remove_stopwords(self, tokenls):
+        return [
+            token for token in tokenls
+            if token not in stopwords.words("spanish")
         ]
